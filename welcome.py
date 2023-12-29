@@ -2,6 +2,8 @@ import streamlit as st
 import pymongo
 from dotenv import load_dotenv
 import os
+import certifi
+
 
 load_dotenv()  # Load variables from .env file
 
@@ -11,7 +13,7 @@ st.set_page_config(layout='wide', initial_sidebar_state='collapsed')
 mongodb_uri = os.getenv("MONGODB_URI")
 
 try:
-    client = pymongo.MongoClient(mongodb_uri)
+    client = pymongo.MongoClient(mongodb_uri, tlsCAFile=certifi.where())
     db = client["mydatabase"]
     users_col = db["users"]
 except pymongo.errors.ConnectionFailure as e:
