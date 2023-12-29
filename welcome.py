@@ -13,7 +13,7 @@ client = pymongo.MongoClient(mongodb_uri)
 db = client["mydatabase"]
 users_col = db["users"]
 
-st.set_page_config(layout='wide', initial_sidebar_state='collapsed')
+
 # Initialize the 'authenticated' attribute
 if "authenticated" not in st.session_state:
   st.session_state['authenticated'] = False
