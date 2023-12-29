@@ -9,9 +9,14 @@ st.set_page_config(layout='wide', initial_sidebar_state='collapsed')
 
 # Connect to MongoDB using environment variable
 mongodb_uri = os.getenv("MONGODB_URI")
-client = pymongo.MongoClient(mongodb_uri)
-db = client["mydatabase"]
-users_col = db["users"]
+
+try:
+    client = pymongo.MongoClient(mongodb_uri)
+    db = client["mydatabase"]
+    users_col = db["users"]
+except pymongo.errors.ConnectionFailure as e:
+    st.error(f"Error connecting to MongoDB: {e}")
+    st.stop()  # Stop execution to avoid further issues
 
 # Initialize the 'authenticated' attribute
 if "authenticated" not in st.session_state:
@@ -52,12 +57,15 @@ def login():
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
     if st.button("Login"):
-        user = users_col.find_one({"username": username, "password": password})
-        if user:
-            st.session_state.authenticated = True
-            st.experimental_rerun()  # Refresh the app to redirect to dashboard
-        else:
-            st.error("Incorrect username or password")
+        try:
+            user = users_col.find_one({"username": username, "password": password})
+            if user:
+                st.session_state.authenticated = True
+                st.experimental_rerun()  # Refresh the app to redirect to dashboard
+            else:
+                st.error("Incorrect username or password")
+        except pymongo.errors.PyMongoError as e:
+            st.error(f"Error querying MongoDB: {e}")
 
 # Create register page
 def register():
@@ -71,9 +79,13 @@ def register():
         password = st.text_input("Password", type="password")
         email = st.text_input("Email")
         if st.button("Register"):
-            user = {"username": username, "password": password, "email": email}
-            users_col.insert_one(user)
-            st.success("User registered successfully!")
+            try:
+                user = {"username": username, "password": password, "email": email}
+                users_col.insert_one(user)
+                st.session_state.show_register_form = False
+                st.success("User registered successfully!")
+            except pymongo.errors.PyMongoError as e:
+                st.error(f"Error inserting into MongoDB: {e}")
 
 # Create dashboard page
 def dashboard():
