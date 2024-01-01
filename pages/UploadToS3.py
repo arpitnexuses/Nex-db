@@ -16,11 +16,6 @@ if "authenticated" not in st.session_state:
 # Connect to MongoDB
 load_dotenv()
 
-# MongoDB connection
-mongo_uri = os.getenv("MONGODB_URI")
-client = MongoClient(mongo_uri)
-db = client.get_default_database()
-collection = db["Whole"]
 
 # AWS S3 credentials
 aws_access_key = os.getenv("AWS_ACCESS_KEY")
