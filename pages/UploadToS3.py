@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import os
 
 st.set_page_config(layout='wide', initial_sidebar_state='expanded')
-with open('file/style.css') as f:
+with open('style.css') as f:
   st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 if "authenticated" not in st.session_state:
