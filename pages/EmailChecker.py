@@ -3,6 +3,8 @@ import pandas as pd
 from pymongo import MongoClient
 import io
 import base64
+from dotenv import load_dotenv
+
 
 st.set_page_config(layout='wide', initial_sidebar_state='expanded')
 with open('style.css') as f:
