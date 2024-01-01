@@ -14,7 +14,7 @@ mongodb_uri = os.getenv("MONGODB_URI")
 client = pymongo.MongoClient(mongodb_uri,tlsCAFile=certifi.where())
 db = client["mydatabase"]
 users_col = db["users"]
-
+ 
 
 # Initialize the 'authenticated' attribute
 if "authenticated" not in st.session_state:
