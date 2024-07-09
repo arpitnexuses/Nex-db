@@ -5,6 +5,7 @@ from botocore.exceptions import NoCredentialsError
 import mimetypes
 from dotenv import load_dotenv
 import os
+import uuid  # Import UUID
 
 st.set_page_config(layout='wide', initial_sidebar_state='expanded')
 with open('style.css') as f:
@@ -15,7 +16,6 @@ if "authenticated" not in st.session_state:
 
 # Connect to MongoDB
 load_dotenv()
-
 
 # AWS S3 credentials
 aws_access_key = os.getenv("AWS_ACCESS_KEY")
@@ -47,9 +47,11 @@ def main():
             type=["jpg", "jpeg", "png", "gif", "mp4", "avi", "mkv", "pdf"])
 
         if uploaded_file is not None:
+            # Generate a unique file name by appending a UUID
+            unique_file_name = f"{uploaded_file.name.rsplit('.', 1)[0]}_{uuid.uuid4()}.{uploaded_file.name.rsplit('.', 1)[1]}"
             file_name = st.text_input(
                 "Enter a file name (including extension):",
-                value=uploaded_file.name if uploaded_file else '')
+                value=unique_file_name if uploaded_file else '')
 
             if uploaded_file.type.startswith('image'):
                 # Display image
