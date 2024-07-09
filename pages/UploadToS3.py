@@ -5,7 +5,7 @@ from botocore.exceptions import NoCredentialsError
 import mimetypes
 from dotenv import load_dotenv
 import os
-import uuid  # Import UUID
+import uuid
 
 st.set_page_config(layout='wide', initial_sidebar_state='expanded')
 with open('style.css') as f:
@@ -47,48 +47,39 @@ def main():
             type=["jpg", "jpeg", "png", "gif", "mp4", "avi", "mkv", "pdf"])
 
         if uploaded_file is not None:
-            # Generate a unique file name by appending a UUID
-            unique_file_name = f"{uploaded_file.name.rsplit('.', 1)[0]}_{uuid.uuid4()}.{uploaded_file.name.rsplit('.', 1)[1]}"
-            file_name = st.text_input(
-                "Enter a file name (including extension):",
-                value=unique_file_name if uploaded_file else '')
+            if "uuid" not in st.session_state:
+                st.session_state.uuid = str(uuid.uuid4())
+
+            original_name, extension = os.path.splitext(uploaded_file.name)
+            file_name_with_uuid = f"{original_name}_{st.session_state.uuid}{extension}"
+
+            original_name = st.text_input("Enter a file name (without extension):", value=original_name)
+            file_name = f"{original_name}_{st.session_state.uuid}{extension}"
 
             if uploaded_file.type.startswith('image'):
-                # Display image
-                st.image(uploaded_file,
-                         caption="Uploaded Image/Video/PDF.",
-                         use_column_width=True)
+                st.image(uploaded_file, caption="Uploaded Image/Video/PDF.", use_column_width=True)
             elif uploaded_file.type == 'application/pdf':
-                # Display a PDF link
-                st.markdown(
-                    f"Uploaded PDF: [{file_name}]({get_object_url(file_name, selected_bucket)})"
-                )
+                st.markdown(f"Uploaded PDF: [{file_name}]({get_object_url(file_name, selected_bucket)})")
             else:
                 st.warning("Unsupported file type. Please upload an image or a PDF.")
 
             if st.button("Get S3 Object URL"):
-                if not file_name:
+                if not original_name:
                     st.warning("Please enter a file name.")
                 else:
-                    # Upload the file to the selected S3 bucket with appropriate Content-Type
                     try:
                         content_type, _ = mimetypes.guess_type(file_name)
-                        s3.upload_fileobj(uploaded_file,
-                                          selected_bucket,
-                                          file_name,
-                                          ExtraArgs={'ContentType': content_type})
+                        s3.upload_fileobj(uploaded_file, selected_bucket, file_name, ExtraArgs={'ContentType': content_type})
                         st.success("File uploaded to S3 successfully.")
                     except Exception as e:
                         st.error(f"Error uploading to S3: {str(e)}")
 
-                    # Get the S3 object URL
                     object_url = get_object_url(file_name, selected_bucket)
                     st.write("S3 Object URL:")
                     st.write(object_url)
 
     else:
         st.error("Please login to access the dashboard.")
-
 
 if __name__ == "__main__":
     main()
