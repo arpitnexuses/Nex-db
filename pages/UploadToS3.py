@@ -68,6 +68,11 @@ def main():
                 else:
                     try:
                         content_type, _ = mimetypes.guess_type(file_name)
+                        if content_type is None:
+                            if extension.lower() == ".webp":
+                                content_type = "image/webp"
+                            else:
+                                content_type = "application/octet-stream"
                         s3.upload_fileobj(uploaded_file, selected_bucket, file_name, ExtraArgs={'ContentType': content_type})
                         st.success("File uploaded to S3 successfully.")
                     except Exception as e:
