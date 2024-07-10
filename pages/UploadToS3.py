@@ -81,7 +81,7 @@ def main():
                     object_url = get_object_url(file_name, selected_bucket)
                     st.write("S3 Object URL:")
                     st.write(object_url)
-                    st.snow()
+                    st.balloons()
                     st.toast('Hooray!', icon='🎉')
 
 
