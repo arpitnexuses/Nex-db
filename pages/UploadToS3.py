@@ -47,14 +47,12 @@ def main():
             type=["jpg", "jpeg", "png", "gif", "mp4", "avi", "mkv", "pdf"])
 
         if uploaded_file is not None:
-            if "uuid" not in st.session_state:
-                st.session_state.uuid = str(uuid.uuid4())
-
+            unique_uuid = str(uuid.uuid4())
             original_name, extension = os.path.splitext(uploaded_file.name)
-            file_name_with_uuid = f"{original_name}_{st.session_state.uuid}{extension}"
+            file_name_with_uuid = f"{original_name}_{unique_uuid}{extension}"
 
             original_name = st.text_input("Enter a file name (without extension):", value=original_name)
-            file_name = f"{original_name}_{st.session_state.uuid}{extension}"
+            file_name = f"{original_name}_{unique_uuid}{extension}"
 
             if uploaded_file.type.startswith('image'):
                 st.image(uploaded_file, caption="Uploaded Image/Video/PDF.", use_column_width=True)
