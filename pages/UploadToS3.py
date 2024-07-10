@@ -44,7 +44,7 @@ def main():
 
         uploaded_file = st.file_uploader(
             "Choose a file...",
-            type=["jpg", "jpeg", "png", "gif", "mp4", "avi", "mkv", "pdf"])
+            type=["jpg", "jpeg", "png", "gif", "mp4", "avi", "mkv", "pdf", "webp"])
 
         if uploaded_file is not None:
             unique_uuid = str(uuid.uuid4())
@@ -60,7 +60,7 @@ def main():
             elif uploaded_file.type == 'application/pdf':
                 st.markdown(f"Uploaded PDF: [{file_name}]({get_object_url(file_name, selected_bucket)})")
             else:
-                st.warning("Unsupported file type. Please upload an image or a PDF.")
+                st.warning("Unsupported file type. Please upload an image, video, or a PDF.")
 
             if st.button("Get S3 Object URL"):
                 if not original_name:
@@ -76,6 +76,7 @@ def main():
                     object_url = get_object_url(file_name, selected_bucket)
                     st.write("S3 Object URL:")
                     st.write(object_url)
+                    st.balloons()
 
     else:
         st.error("Please login to access the dashboard.")
