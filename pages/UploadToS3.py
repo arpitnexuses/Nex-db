@@ -81,9 +81,18 @@ def main():
                     object_url = get_object_url(file_name, selected_bucket)
                     st.write("S3 Object URL:")
                     st.write(object_url)
-                    st.balloons()
-                    st.toast('Hooray!', icon='🎉')
 
+                    # JavaScript to copy to clipboard
+                    js = f"""
+                    <script>
+                    navigator.clipboard.writeText("{object_url}").then(function() {{
+                        alert('Copied!');
+                    }}, function(err) {{
+                        console.error('Async: Could not copy text: ', err);
+                    }});
+                    </script>
+                    """
+                    st.components.v1.html(js)
 
     else:
         st.error("Please login to access the dashboard.")
