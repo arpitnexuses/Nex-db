@@ -82,6 +82,7 @@ def main():
                     st.write("S3 Object URL:")
                     st.write(object_url)
                     st.snow()
+                    st.toast('Hooray!', icon='🎉')
 
 
     else:
