@@ -82,21 +82,6 @@ def main():
                     st.write("S3 Object URL:")
                     st.write(object_url)
 
-                    # JavaScript to copy to clipboard
-                    st.markdown(f"""
-                    <script>
-                    const textToCopy = '{object_url}';
-                    navigator.clipboard.writeText(textToCopy).then(() => {{
-                        const el = document.createElement('div');
-                        el.innerHTML = '<style>.toast{{position:fixed;top:20px;right:20px;z-index:1000;background:#0073e6;color:white;padding:10px;border-radius:5px;}}</style><div class="toast">Copied!</div>';
-                        document.body.appendChild(el);
-                        setTimeout(() => {{
-                            el.remove();
-                        }}, 3000);
-                    }});
-                    </script>
-                    """, unsafe_allow_html=True)
-
     else:
         st.error("Please login to access the dashboard.")
 
