@@ -49,6 +49,7 @@ def main():
         if uploaded_file is not None:
             unique_uuid = str(uuid.uuid4())
             original_name, extension = os.path.splitext(uploaded_file.name)
+            original_name = original_name.replace(" ", "_")  # Remove spaces from the file name
             file_name_with_uuid = f"{original_name}_{unique_uuid}{extension}"
 
             original_name = st.text_input("Enter a file name (without extension):", value=original_name)
