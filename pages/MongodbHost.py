@@ -61,7 +61,7 @@ def main():
                     try:
                         file_id = fs.put(uploaded_file, filename=file_name)
                         st.success("File uploaded to MongoDB successfully.")
-                        file_url = f"http://127.0.0.1:5000/file/{file_id}"
+                        file_url = f"http://0.0.0.0:5000/file/{file_id}"
                         st.write("MongoDB File URL:")
                         st.write(file_url)
                     except Exception as e:
