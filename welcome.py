@@ -5,6 +5,7 @@ import os
 import certifi
 import uuid
 import gridfs
+from pymongo import MongoClient, errors
 load_dotenv()  # Load variables from .env file
 
 st.set_page_config(layout='wide', initial_sidebar_state='collapsed')
