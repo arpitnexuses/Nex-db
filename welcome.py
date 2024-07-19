@@ -14,7 +14,11 @@ mongodb_uri = os.getenv("MONGODB_URI")
 client = pymongo.MongoClient(mongodb_uri,tlsCAFile=certifi.where())
 db = client["mydatabase"]
 users_col = db["users"]
- 
+mongo_uri = ("mongodb+srv://cluster0.pbrqpu9.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority&appName=Cluster0")
+db_name = ("Nex-Data")
+client = MongoClient(mongo_uri)
+db = client[db_name]
+fs = gridfs.GridFS(db)
 
 # Initialize the 'authenticated' attribute
 if "authenticated" not in st.session_state:
@@ -102,6 +106,13 @@ def dashboard():
     login()
 
 
+@app.route('/file/<file_id>', methods=['GET'])
+def get_file(file_id):
+    try:
+        file = fs.get(file_id)
+        return send_file(BytesIO(file.read()), attachment_filename=file.filename, mimetype=file.content_type)
+    except Exception as e:
+        return Response(f"Error: {str(e)}", status=404)
 def sidebar():
   # Add your sidebar elements here
   pass
