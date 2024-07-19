@@ -17,7 +17,7 @@ if "authenticated" not in st.session_state:
 load_dotenv()
 
 # MongoDB connection details
-mongo_uri = ("mongodb+srv://cluster0.pbrqpu9.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority&appName=Cluster0")
+mongo_uri = ("mongodb+srv://nexuses:Nexuses@cluster0.pbrqpu9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 db_name = ("Nex-Data")
 
 # Connect to MongoDB
