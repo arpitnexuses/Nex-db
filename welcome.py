@@ -3,8 +3,8 @@ import pymongo
 from dotenv import load_dotenv
 import os
 import certifi
-
-
+import uuid
+import gridfs
 load_dotenv()  # Load variables from .env file
 
 st.set_page_config(layout='wide', initial_sidebar_state='collapsed')
