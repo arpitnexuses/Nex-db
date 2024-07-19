@@ -1,7 +1,8 @@
-pymongo
-python-dotenv
-streamlit
-boto3
+
+pymongo==4.8.0
+python-dotenv==1.0.1
+streamlit==1.36.0
+boto3==1.34.145
 gridfs
 uuid
 MongoClient
