@@ -21,7 +21,7 @@ load_dotenv()
 aws_access_key = os.getenv("AWS_ACCESS_KEY")
 aws_secret_key = os.getenv("AWS_SECRET_KEY")
 aws_region = os.getenv("AWS_REGION")
-s3_bucket_names = ["cdn-nexlink", "voiceoc-ai", "krvauditing", "krvauditing2", "nex-digm", "blockarmour", "voiceoc2", "voiceoc-ai2", "voiceoc-ai3", "mars-solution", "mars-solution2", "mars-solution3", "mars-solution4", "nexuses", "travvir", "smiforce", "smiforce2", "cystech1", "rsm-saudi", "rsmsaudi2", "rsmsaudi3", "rsmsaudi4", "rsmsaudi5", "zainimedia", "smc-india", "smc-india3", "smc-india4", "smcindia2", "purplesynapz2", "purplesynapz1", "alliedim","alliedim1", "brandwise2", "apa1", "apa2","can-2024","cyb3r-2024","aisera-1","aisera-2","aisera-3","ltsaccelerator", "tamul2024", "nexuseslink2024", "shiftpurple", "rsm-kuwait","cool-clean","sb-2024"]
+s3_bucket_names = ["cdn-nexlink", "voiceoc-ai", "krvauditing", "krvauditing2", "nex-digm", "blockarmour", "voiceoc2", "voiceoc-ai2", "voiceoc-ai3", "mars-solution", "mars-solution2", "mars-solution3", "mars-solution4", "nexuses", "travvir", "smiforce", "smiforce2", "cystech1", "rsm-saudi", "rsmsaudi2", "rsmsaudi3", "rsmsaudi4", "rsmsaudi5", "zainimedia", "smc-india", "smc-india3", "smc-india4", "smcindia2", "purplesynapz2", "purplesynapz1", "alliedim","alliedim1", "brandwise2", "apa1", "apa2","can-2024","cyb3r-2024","aisera-1","aisera-2","aisera-3","ltsaccelerator", "tamul2024", "nexuseslink2024", "shiftpurple", "rsm-kuwait","cool-clean","sb-2024, enghouse-2024"]
 
 # Create an S3 client
 s3 = boto3.client('s3',
